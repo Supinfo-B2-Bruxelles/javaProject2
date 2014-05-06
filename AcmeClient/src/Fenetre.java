@@ -1,4 +1,7 @@
+import interfaceGraphic.BoutonContextAcme;
+import interfaceGraphic.PasswordFieldAcme;
 import interfaceGraphic.bouttonAcme;
+import interfaceGraphic.textBoxAcme;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,13 +16,26 @@ import javax.swing.JPanel;
 
 
 public class Fenetre extends JFrame implements ActionListener{
-	 
+	  
 	//attributs de la fenetre elle meme
 	public String typeFenetre;
 	
-	//liste des bouttons potentiellement sur la fenetre
+	//liste des bouttons "tuile"
 	public bouttonAcme boutonConexion= new bouttonAcme("CONNECTION");
 	public bouttonAcme boutonInscription= new bouttonAcme("INSCRIPTION");
+	
+	//liste des boutons classiques
+	public BoutonContextAcme BConexion = new BoutonContextAcme("Connexion");
+	public BoutonContextAcme BInscription = new BoutonContextAcme("Inscription");
+	
+	//liste des textboxes
+	public textBoxAcme TBNom = new textBoxAcme(15);
+	public textBoxAcme TBPrenom = new textBoxAcme(15);
+	public textBoxAcme TBEmail = new textBoxAcme("@supinfo.com",15);
+	
+	//liste des champs pour mot de passe
+	public PasswordFieldAcme TBMotDePasse = new PasswordFieldAcme(15);
+	public PasswordFieldAcme TBConfirmMotDePasse = new PasswordFieldAcme(15);
 	
 	//liste des panels éventuels de la fenêtre
 	public JPanel panelAcceuil = new JPanel();
@@ -82,6 +98,17 @@ public class Fenetre extends JFrame implements ActionListener{
 			
 			panelAcceuil.revalidate();
 			System.out.println("inscription");
+			
+			//ajout des champs et bouttons
+			panelAcceuil.add(TBNom);
+			panelAcceuil.add(TBPrenom);
+			panelAcceuil.add(TBEmail);
+			panelAcceuil.add(TBMotDePasse);
+			panelAcceuil.add(TBConfirmMotDePasse);
+			panelAcceuil.add(BInscription);
+			
+			
+			
 		}
 
 	//action des bouttons
