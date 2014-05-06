@@ -86,7 +86,13 @@ public class Fenetre extends JFrame implements ActionListener{
 			panelAcceuil.removeAll();
 			
 			panelAcceuil.revalidate();
-			System.out.println("conexion");
+			System.out.println("panneau de conexion");
+			
+			
+			//ajout des champs et bouttons
+			panelAcceuil.add(TBEmail);
+			panelAcceuil.add(TBMotDePasse);
+			panelAcceuil.add(BConexion);
 			
 		}
 	
@@ -97,7 +103,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			panelAcceuil.removeAll();
 			
 			panelAcceuil.revalidate();
-			System.out.println("inscription");
+			System.out.println("anneau d'inscription");
 			
 			//ajout des champs et bouttons
 			panelAcceuil.add(TBNom);
@@ -122,6 +128,14 @@ public class Fenetre extends JFrame implements ActionListener{
 			if (e.getSource()==boutonInscription)
 				{
 					this.panelInscription();
+				}
+			if (e.getSource()==BConexion)
+				{
+					
+				}
+			if (e.getSource()==BInscription)
+				{
+					
 				}
 			
 		}
