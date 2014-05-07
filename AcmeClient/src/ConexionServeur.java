@@ -38,10 +38,11 @@ public class ConexionServeur {
 				}
 		}
 	
-	public void inscription(String nom, String prenom, String email, String mdp, String statut)
+	public String inscription(String nom, String prenom, String email, String mdp, String statut)
 		{
 			BufferedReader in;
 			PrintWriter out;
+			String retour="0";
 			try 
 				{
 					System.out.println("envoie de la requete d'inscription");
@@ -60,12 +61,15 @@ public class ConexionServeur {
 					s.close();
 					//out.flush();
 					//out.close();
+					retour = message_distant;
+					
 				} 
 			catch (IOException e) 
 				{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			return retour;
 		}
 
 }

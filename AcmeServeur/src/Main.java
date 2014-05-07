@@ -43,14 +43,15 @@ public class Main {
 						
 						//appel de la méthode correspondante
 						GestionReponse gestion = new GestionReponse();
+						String resultatTraitement="0"; //cette variable sert à savoire si tout s'est bien passé. dans le cas d'une réponse (par ex: un SELECT), elle contiendra la réponse
 						if (liste[0].equals("inscription"))
 							{
-								gestion.inscription(liste);
+								resultatTraitement=gestion.inscription(liste);
 							}
 						
-						System.out.println(baseDeDonnee.requete());
+						
 						 out = new PrintWriter(service.getOutputStream());
-						 out.println("Vous êtes connecté zéro !");
+						 out.println(resultatTraitement);
 						 out.flush();
 						System.out.println("serveur en fonctionnement");
 			

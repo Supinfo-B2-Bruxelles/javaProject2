@@ -15,6 +15,7 @@ import javax.swing.Action;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -172,9 +173,15 @@ public class Fenetre extends JFrame implements ActionListener{
 				}
 			if (motDePasse.equals(confirmMotDePasse))
 				{
+					String inscriptionReussie="0";
 					ConexionServeur requete = new ConexionServeur();
-					requete.inscription(nom, prenom, email, motDePasse, statut);
-				
+					inscriptionReussie = requete.inscription(nom, prenom, email, motDePasse, statut);
+					System.out.println("tout vas bien: "+inscriptionReussie);
+					if (inscriptionReussie.equals("1"))
+						{
+							JOptionPane.showMessageDialog(this, "Inscription réussie");
+							this.panelConexion();
+						}
 				}
 		}
 	public void enregistrerConexion()

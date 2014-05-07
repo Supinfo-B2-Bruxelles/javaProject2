@@ -17,7 +17,7 @@ public class GestionReponse {
 					
 			ConexionBDD BDD = new ConexionBDD();
 			BDD.inscription(nom, prenom, email, mdp, statutInt);
-			
+			retour="1";
 			
 			return retour;
 		}
