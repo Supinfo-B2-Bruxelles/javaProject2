@@ -16,7 +16,7 @@ public class ConexionServeur {
 				{
 					//connexion au serveur
 					Socket s = new Socket(nomServeur, port);
-					OutputStream out = new FileOutputStream ("file");
+					OutputStream out = new FileOutputStream ("");
 					InputStream in = s.getInputStream();
 					byte[] buffer = new byte[256];
 						
