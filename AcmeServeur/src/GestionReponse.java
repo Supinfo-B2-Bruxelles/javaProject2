@@ -13,6 +13,12 @@ public class GestionReponse {
 			String mdp=liste[4];
 			String statut=liste[5];
 			
+			int statutInt=Integer.parseInt(statut);
+					
+			ConexionBDD BDD = new ConexionBDD();
+			BDD.inscription(nom, prenom, email, mdp, statutInt);
+			
+			
 			return retour;
 		}
 

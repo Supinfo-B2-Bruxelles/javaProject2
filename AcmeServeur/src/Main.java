@@ -29,13 +29,13 @@ public class Main {
 						
 						service = listen.accept();
 						System.out.println("connexion acceptée");
-						System.out.println("truc 1");
+						
 						ISR = new InputStreamReader(service.getInputStream());
-						System.out.println("truc 2");
+						
 						in = new BufferedReader(ISR);
-						System.out.println("truc 3");
+						
 						String texteRecu = in.readLine();
-						System.out.println("truc 4");
+						
 						System.out.println("texte recu: "+texteRecu);
 						
 						//découpage en tableau de la chaine de caractere recue
