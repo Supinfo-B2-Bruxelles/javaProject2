@@ -1,4 +1,5 @@
 import interfaceGraphic.BoutonContextAcme;
+import interfaceGraphic.LabelAcme;
 import interfaceGraphic.PasswordFieldAcme;
 import interfaceGraphic.bouttonAcme;
 import interfaceGraphic.radioAcme;
@@ -43,6 +44,14 @@ public class Fenetre extends JFrame implements ActionListener{
 	public radioAcme RBEmployee = new radioAcme("Employé", true);
 	public radioAcme RBManager = new radioAcme("Manager");
 	
+	//liste des labels
+	public LabelAcme LNom = new LabelAcme("Nom:");
+	public LabelAcme LPrenom = new LabelAcme("Prenom:");
+	public LabelAcme LEmail = new LabelAcme("E-mail:");
+	public LabelAcme LMotDePasse = new LabelAcme("Mot de passe:");
+	public LabelAcme LConfirmMotDePasse = new LabelAcme("Confirmer le mot de passe:");
+	public LabelAcme LFonction = new LabelAcme("Fonction:");
+	
 	//liste des panels éventuels de la fenêtre
 	public JPanel panelAcceuil = new JPanel();
 	
@@ -67,15 +76,17 @@ public class Fenetre extends JFrame implements ActionListener{
 	public void FenetreConexion()
 		{
 			this.setSize(500, 500); 
+			this.setLayout(new BorderLayout());
 			
 			panelAcceuil.setBackground(Color.BLUE);			
 			
 			
 			boutonConexion.addActionListener(this);
 			boutonInscription.addActionListener(this);
-			panelAcceuil.add(boutonConexion);
-			panelAcceuil.add(boutonInscription);
 			this.setContentPane(panelAcceuil);
+			this.panelAcceuil.add(boutonConexion, BorderLayout.CENTER);
+			this.panelAcceuil.add(boutonInscription, BorderLayout.CENTER);
+			
 			
 			
 
@@ -96,7 +107,9 @@ public class Fenetre extends JFrame implements ActionListener{
 			
 			
 			//ajout des champs et bouttons
+			panelAcceuil.add(LEmail);
 			panelAcceuil.add(TBEmail);
+			panelAcceuil.add(LMotDePasse);
 			panelAcceuil.add(TBMotDePasse);
 			panelAcceuil.add(BConexion);
 			
@@ -117,11 +130,17 @@ public class Fenetre extends JFrame implements ActionListener{
 			groupeInscription.add(RBManager);
 			
 			//ajout des champs et bouttons
+			panelAcceuil.add(LNom);
 			panelAcceuil.add(TBNom);
+			panelAcceuil.add(LPrenom);
 			panelAcceuil.add(TBPrenom);
+			panelAcceuil.add(LEmail);
 			panelAcceuil.add(TBEmail);
+			panelAcceuil.add(LMotDePasse);
 			panelAcceuil.add(TBMotDePasse);
+			panelAcceuil.add(LConfirmMotDePasse);
 			panelAcceuil.add(TBConfirmMotDePasse);
+			panelAcceuil.add(LFonction);
 			panelAcceuil.add(RBEmployee);
 			panelAcceuil.add(RBManager);
 			
