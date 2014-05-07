@@ -48,7 +48,12 @@ public class Main {
 							{
 								resultatTraitement=gestion.inscription(liste);
 							}
-						
+						else if (liste[0].equals("conexion"))
+							{
+								resultatTraitement=gestion.conexion(liste);
+								System.out.println("resutat req co: "+ resultatTraitement);
+							}
+							
 						
 						 out = new PrintWriter(service.getOutputStream());
 						 out.println(resultatTraitement);

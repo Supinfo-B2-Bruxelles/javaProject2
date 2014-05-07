@@ -156,6 +156,12 @@ public class Fenetre extends JFrame implements ActionListener{
 			
 		}
 	
+	//pannel d'accueil du client conecté
+	public void panelAcceuilConnexte()
+		{
+			
+		}
+	
 	public void enregistrerInscription()
 		{
 			String nom = TBNom.getText();
@@ -177,6 +183,7 @@ public class Fenetre extends JFrame implements ActionListener{
 					ConexionServeur requete = new ConexionServeur();
 					inscriptionReussie = requete.inscription(nom, prenom, email, motDePasse, statut);
 					System.out.println("tout vas bien: "+inscriptionReussie);
+					//si l'inscription est réussie, on le dis et on redirige vers la page de conexion
 					if (inscriptionReussie.equals("1"))
 						{
 							JOptionPane.showMessageDialog(this, "Inscription réussie");
@@ -186,6 +193,24 @@ public class Fenetre extends JFrame implements ActionListener{
 		}
 	public void enregistrerConexion()
 		{
+			String email = TBEmail.getText();
+			char[] mdp = TBMotDePasse.getPassword();
+			String motDePasse = String.valueOf(mdp);
+			
+			String conexionReussie="0";
+			
+			ConexionServeur requete = new ConexionServeur();
+			conexionReussie = requete.conexion(email, motDePasse);
+			
+			if (conexionReussie.equals("1"))
+				{
+					JOptionPane.showMessageDialog(this, "Conexion réussie");
+					this.panelAcceuilConnexte();
+				}
+			else
+				{
+					JOptionPane.showMessageDialog(this, "Conexion échouée");
+				}
 			
 			
 			

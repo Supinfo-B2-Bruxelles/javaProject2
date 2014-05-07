@@ -16,8 +16,21 @@ public class GestionReponse {
 			int statutInt=Integer.parseInt(statut);
 					
 			ConexionBDD BDD = new ConexionBDD();
-			BDD.inscription(nom, prenom, email, mdp, statutInt);
-			retour="1";
+			retour = BDD.inscription(nom, prenom, email, mdp, statutInt);
+			
+			
+			return retour;
+		}
+	
+	public String conexion(String[] liste)
+		{
+			String retour="";
+			
+			String email=liste[1];
+			String mdp=liste[2];
+			
+			ConexionBDD BDD = new ConexionBDD();
+			retour = BDD.conexion(email, mdp);
 			
 			return retour;
 		}

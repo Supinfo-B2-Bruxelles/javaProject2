@@ -1,6 +1,9 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 
 public class ConexionBDD {
@@ -66,7 +69,7 @@ public class ConexionBDD {
 			return retour;
 		}
 	
-	public void inscription(String nom, String prenom, String email, String mdp, int statut)
+	public String inscription(String nom, String prenom, String email, String mdp, int statut)
 		{
 		
 			//chargement du driver
@@ -96,17 +99,65 @@ public class ConexionBDD {
 					e.printStackTrace();
 				}
 			
-			//envoie de la requete
+			String retour="1";
+			return retour;
 			
 				  
 				 
 				
-			
-		
-		
-		
-		
-		
+
 		
 		}
+	
+	public String conexion(String email, String mdp)
+		{
+			String retour="0";
+			//chargement du driver
+			try 
+				{
+					  Class.forName(com.mysql.jdbc.Driver.class.getName());
+				} 
+			catch(ClassNotFoundException ex) 
+				{
+					  System.out.println("Can’t load the Driver");
+				}
+	
+			
+			
+			//connexion à la base de donnée
+			
+			try 
+				{
+					Connection connection = DriverManager.getConnection(adresseDB,userDB,mdpDB);
+					System.out.println("conexion à la base de donnée réussie");
+					Statement stmt = connection.createStatement();
+
+					//ResultSet rs = stmt.executeQuery("SELECT * FROM employee WERE e_mail ="+email);
+					
+					ResultSet rs = stmt.executeQuery("SELECT * FROM employee");
+					
+					
+					
+					while(rs.next()) 
+						{
+							
+							if (rs.getString("mot_de_passe").equals(mdp) && rs.getString("e_mail").equals(email))
+								{
+									retour="1";
+								}
+							
+						}
+
+
+				}
+			catch (SQLException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			return retour;
+		}
+	
+	
 }
