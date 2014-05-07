@@ -81,6 +81,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			this.setSize(500, 500); 
 			this.setLayout(new BorderLayout());
 			
+			
 			panelAcceuil.setBackground(Color.BLUE);			
 			
 			
@@ -114,6 +115,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			panelAcceuil.add(TBEmail);
 			panelAcceuil.add(LMotDePasse);
 			panelAcceuil.add(TBMotDePasse);
+			BConexion.addActionListener(this);
 			panelAcceuil.add(BConexion);
 			
 		}
@@ -146,7 +148,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			panelAcceuil.add(LFonction);
 			panelAcceuil.add(RBEmployee);
 			panelAcceuil.add(RBManager);
-			
+			BInscription.addActionListener(this);
 			panelAcceuil.add(BInscription);
 			
 			
@@ -155,22 +157,30 @@ public class Fenetre extends JFrame implements ActionListener{
 	
 	public void enregistrerInscription()
 		{
-			
-		}
-	public void enregistrerConexion()
-		{
 			String nom = TBNom.getText();
 			String prenom = TBPrenom.getText();
 			String email = TBEmail.getText();
-			char mdp = TBMotDePasse.getPassword();
+			char[] mdp = TBMotDePasse.getPassword();
 			String motDePasse = String.valueOf(mdp);
-			char cmdp = TBConfirmMotDePasse.getPassword();
+			char[] cmdp = TBConfirmMotDePasse.getPassword();
 			String confirmMotDePasse = String.valueOf(cmdp);
-			String Statut="0";
+			String statut="0";
+			System.out.println(motDePasse);
+			System.out.println(confirmMotDePasse);
 			if (RBManager.isSelected())
 				{
-					Statut = "0";
+					statut = "0";
 				}
+			if (motDePasse.equals(confirmMotDePasse))
+				{
+					ConexionServeur requete = new ConexionServeur();
+					requete.inscription(nom, prenom, email, motDePasse, statut);
+				
+				}
+		}
+	public void enregistrerConexion()
+		{
+			
 			
 			
 		}
@@ -194,6 +204,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			if (e.getSource()==BInscription)
 				{
 					this.enregistrerInscription();
+					System.out.println("truc");
 				}
 			
 		}

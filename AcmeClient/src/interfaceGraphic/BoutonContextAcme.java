@@ -1,6 +1,7 @@
 package interfaceGraphic;
 
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
 
 import javax.swing.Action;
 import javax.swing.Icon;
@@ -34,6 +35,37 @@ public class BoutonContextAcme extends bouttonAcme{
 	public void redessinerBouton()
 		{
 			this.setPreferredSize(new Dimension(longueur, hauteur));
+			this.addMouseListener(this);
 		}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 

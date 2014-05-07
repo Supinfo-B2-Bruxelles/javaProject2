@@ -10,6 +10,7 @@ public class Main {
 	{
 		// Listening Port : 18000 || Max connection queue: 5
 		ServerSocket listen;
+		InputStreamReader ISR = null;
 		BufferedReader in;
 		PrintWriter out;
 		try 
@@ -26,6 +27,16 @@ public class Main {
 						
 						service = listen.accept();
 						System.out.println("connexion acceptée");
+						System.out.println("truc 1");
+						ISR = new InputStreamReader(service.getInputStream());
+						System.out.println("truc 2");
+						in = new BufferedReader(ISR);
+						System.out.println("truc 3");
+						String texteRecu = in.readLine();
+						System.out.println("truc 4");
+						System.out.println("texte recu: "+texteRecu);
+						
+						
 						System.out.println(baseDeDonnee.requete());
 						 out = new PrintWriter(service.getOutputStream());
 						 out.println("Vous êtes connecté zéro !");

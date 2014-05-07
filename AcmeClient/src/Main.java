@@ -11,9 +11,9 @@ public class Main {
 		
 		//lancement de la fenêtre de connexion
 		Fenetre fenetreConexion= new Fenetre("conexion");
+		fenetreConexion.setLocationRelativeTo(null);
 		fenetreConexion.setVisible(true);
-		ConexionServeur conexion= new ConexionServeur();
-		conexion.envoieRequete();
+		
 
 
 	}
