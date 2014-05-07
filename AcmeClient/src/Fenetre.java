@@ -44,6 +44,9 @@ public class Fenetre extends JFrame implements ActionListener{
 	public radioAcme RBEmployee = new radioAcme("Employé", true);
 	public radioAcme RBManager = new radioAcme("Manager");
 	
+	//liste des groupes de boutons radio
+	ButtonGroup groupeRadioStatut = new ButtonGroup();
+	
 	//liste des labels
 	public LabelAcme LNom = new LabelAcme("Nom:");
 	public LabelAcme LPrenom = new LabelAcme("Prenom:");
@@ -124,10 +127,10 @@ public class Fenetre extends JFrame implements ActionListener{
 			panelAcceuil.revalidate();
 			System.out.println("panneau d'inscription");
 			
-			ButtonGroup groupeInscription = new ButtonGroup();
 			
-			groupeInscription.add(RBEmployee);
-			groupeInscription.add(RBManager);
+			
+			groupeRadioStatut.add(RBEmployee);
+			groupeRadioStatut.add(RBManager);
 			
 			//ajout des champs et bouttons
 			panelAcceuil.add(LNom);
@@ -149,6 +152,28 @@ public class Fenetre extends JFrame implements ActionListener{
 			
 			
 		}
+	
+	public void enregistrerInscription()
+		{
+			
+		}
+	public void enregistrerConexion()
+		{
+			String nom = TBNom.getText();
+			String prenom = TBPrenom.getText();
+			String email = TBEmail.getText();
+			char mdp = TBMotDePasse.getPassword();
+			String motDePasse = String.valueOf(mdp);
+			char cmdp = TBConfirmMotDePasse.getPassword();
+			String confirmMotDePasse = String.valueOf(cmdp);
+			String Statut="0";
+			if (RBManager.isSelected())
+				{
+					Statut = "0";
+				}
+			
+			
+		}
 
 	//action des bouttons
 	@Override
@@ -164,11 +189,11 @@ public class Fenetre extends JFrame implements ActionListener{
 				}
 			if (e.getSource()==BConexion)
 				{
-					
+					this.enregistrerConexion();
 				}
 			if (e.getSource()==BInscription)
 				{
-					
+					this.enregistrerInscription();
 				}
 			
 		}
