@@ -1,6 +1,7 @@
 import interfaceGraphic.BoutonContextAcme;
 import interfaceGraphic.PasswordFieldAcme;
 import interfaceGraphic.bouttonAcme;
+import interfaceGraphic.radioAcme;
 import interfaceGraphic.textBoxAcme;
 
 import java.awt.BorderLayout;
@@ -36,6 +37,10 @@ public class Fenetre extends JFrame implements ActionListener{
 	//liste des champs pour mot de passe
 	public PasswordFieldAcme TBMotDePasse = new PasswordFieldAcme(15);
 	public PasswordFieldAcme TBConfirmMotDePasse = new PasswordFieldAcme(15);
+	
+	//liste des bouttons radio
+	public radioAcme RBEmployee = new radioAcme("Employé", true);
+	public radioAcme RBManager = new radioAcme("Manager", true);
 	
 	//liste des panels éventuels de la fenêtre
 	public JPanel panelAcceuil = new JPanel();
@@ -111,6 +116,8 @@ public class Fenetre extends JFrame implements ActionListener{
 			panelAcceuil.add(TBEmail);
 			panelAcceuil.add(TBMotDePasse);
 			panelAcceuil.add(TBConfirmMotDePasse);
+			panelAcceuil.add(RBEmployee);
+			panelAcceuil.add(RBManager);
 			panelAcceuil.add(BInscription);
 			
 			
