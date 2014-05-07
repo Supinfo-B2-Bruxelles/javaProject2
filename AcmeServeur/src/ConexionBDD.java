@@ -5,9 +5,9 @@ import java.sql.SQLException;
 
 public class ConexionBDD {
 	
-	private String userDB="supinfo";
-	private String mdpDB="supinfo";
-	private String adresseDB="localhost";
+	private String userDB="root";
+	private String mdpDB="";
+	private String adresseDB="jdbc:mysql://127.0.0.1/acme";
 	
 	public String getUserDB() {
 		return userDB;
