@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Action;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -40,7 +41,7 @@ public class Fenetre extends JFrame implements ActionListener{
 	
 	//liste des bouttons radio
 	public radioAcme RBEmployee = new radioAcme("Employé", true);
-	public radioAcme RBManager = new radioAcme("Manager", true);
+	public radioAcme RBManager = new radioAcme("Manager");
 	
 	//liste des panels éventuels de la fenêtre
 	public JPanel panelAcceuil = new JPanel();
@@ -108,7 +109,12 @@ public class Fenetre extends JFrame implements ActionListener{
 			panelAcceuil.removeAll();
 			
 			panelAcceuil.revalidate();
-			System.out.println("anneau d'inscription");
+			System.out.println("panneau d'inscription");
+			
+			ButtonGroup groupeInscription = new ButtonGroup();
+			
+			groupeInscription.add(RBEmployee);
+			groupeInscription.add(RBManager);
 			
 			//ajout des champs et bouttons
 			panelAcceuil.add(TBNom);
@@ -118,6 +124,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			panelAcceuil.add(TBConfirmMotDePasse);
 			panelAcceuil.add(RBEmployee);
 			panelAcceuil.add(RBManager);
+			
 			panelAcceuil.add(BInscription);
 			
 			
