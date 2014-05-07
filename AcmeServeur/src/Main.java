@@ -17,6 +17,7 @@ public class Main {
 				System.out.println("serveur en fonctionnement");
 				listen = new ServerSocket(18000, 5);
 				Socket service;
+				ConexionBDD baseDeDonnee = new ConexionBDD();
 				
 				while (true) 
 					{
@@ -25,6 +26,7 @@ public class Main {
 						
 						service = listen.accept();
 						System.out.println("connexion acceptée");
+						System.out.println(baseDeDonnee.requete());
 						 out = new PrintWriter(service.getOutputStream());
 						 out.println("Vous êtes connecté zéro !");
 						 out.flush();
