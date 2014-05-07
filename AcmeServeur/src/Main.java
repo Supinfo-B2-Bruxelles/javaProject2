@@ -1,6 +1,8 @@
 
 import java.io.*;
 import java.net.*;
+import java.util.LinkedList;
+import java.util.StringTokenizer;
 
 
 //Main du serveur
@@ -36,6 +38,15 @@ public class Main {
 						System.out.println("truc 4");
 						System.out.println("texte recu: "+texteRecu);
 						
+						//découpage en tableau de la chaine de caractere recue
+						String[] liste = texteRecu.split(";");
+						
+						//appel de la méthode correspondante
+						GestionReponse gestion = new GestionReponse();
+						if (liste[0].equals("inscription"))
+							{
+								gestion.inscription(liste);
+							}
 						
 						System.out.println(baseDeDonnee.requete());
 						 out = new PrintWriter(service.getOutputStream());
@@ -57,4 +68,6 @@ public class Main {
 		
 
 	}
+	
+	
 }

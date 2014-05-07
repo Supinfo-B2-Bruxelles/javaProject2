@@ -165,11 +165,10 @@ public class Fenetre extends JFrame implements ActionListener{
 			char[] cmdp = TBConfirmMotDePasse.getPassword();
 			String confirmMotDePasse = String.valueOf(cmdp);
 			String statut="0";
-			System.out.println(motDePasse);
-			System.out.println(confirmMotDePasse);
+			
 			if (RBManager.isSelected())
 				{
-					statut = "0";
+					statut = "1";
 				}
 			if (motDePasse.equals(confirmMotDePasse))
 				{
