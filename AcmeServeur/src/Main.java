@@ -10,6 +10,8 @@ public class Main {
 	{
 		// Listening Port : 18000 || Max connection queue: 5
 		ServerSocket listen;
+		BufferedReader in;
+		PrintWriter out;
 		try 
 			{
 				System.out.println("serveur en fonctionnement");
@@ -22,15 +24,10 @@ public class Main {
 						// Ready to accept client connection
 						
 						service = listen.accept();
-						OutputStream out = service.getOutputStream();
-						InputStream in = new FileInputStream ("file");
-						byte[] buffer = new byte[256];
-			
-						// While there is byte to read
-						while (in.read (buffer) != -1) 
-							{
-								out.write (buffer);
-							}
+						System.out.println("connexion acceptée");
+						 out = new PrintWriter(service.getOutputStream());
+						 out.println("Vous êtes connecté zéro !");
+						 out.flush();
 						System.out.println("serveur en fonctionnement");
 			
 					}
