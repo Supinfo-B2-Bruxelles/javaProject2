@@ -157,9 +157,21 @@ public class Fenetre extends JFrame implements ActionListener{
 		}
 	
 	//pannel d'accueil du client conecté
-	public void panelAcceuilConnexte()
+	public void panelAcceuilConnexte(String[] infoEmployee)
 		{
-			
+			Employee client;
+			if (infoEmployee[4].equals("0"))
+				{
+					client= new Employee(infoEmployee[0], infoEmployee[1], infoEmployee[2], infoEmployee[3]);
+				}
+			else if (infoEmployee[4].equals("1"))
+				{
+					client= new Manager(infoEmployee[0], infoEmployee[1], infoEmployee[2], infoEmployee[3]);
+				}
+			else
+				{
+					client= new Employee(infoEmployee[0], infoEmployee[1], infoEmployee[2], infoEmployee[3]);
+				}
 		}
 	
 	public void enregistrerInscription()
@@ -202,10 +214,13 @@ public class Fenetre extends JFrame implements ActionListener{
 			ConexionServeur requete = new ConexionServeur();
 			conexionReussie = requete.conexion(email, motDePasse);
 			
-			if (conexionReussie.equals("1"))
+			if (!conexionReussie.equals("0"))
 				{
+					//découpage en tableau de la chaine de caractere recue
+					String[] conexion;
+					conexion = conexionReussie.split(";");
 					JOptionPane.showMessageDialog(this, "Conexion réussie");
-					this.panelAcceuilConnexte();
+					this.panelAcceuilConnexte(conexion);
 				}
 			else
 				{

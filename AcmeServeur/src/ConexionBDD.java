@@ -143,7 +143,7 @@ public class ConexionBDD {
 							
 							if (rs.getString("mot_de_passe").equals(mdp) && rs.getString("e_mail").equals(email))
 								{
-									retour="1";
+									retour=rs.getString("id")+";"+rs.getString("nom")+";"+rs.getString("prenom")+";"+rs.getString("e_mail")+";"+rs.getString("statut");
 								}
 							
 						}
