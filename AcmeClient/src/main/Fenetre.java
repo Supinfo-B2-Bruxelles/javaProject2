@@ -34,11 +34,13 @@ public class Fenetre extends JFrame implements ActionListener{
 	//liste des boutons classiques
 	public BoutonContextAcme BConexion = new BoutonContextAcme("Connexion");
 	public BoutonContextAcme BInscription = new BoutonContextAcme("Inscription");
+	public BoutonContextAcme BIdProjet = new BoutonContextAcme("Voire le projet");
 	
 	//liste des textboxes
 	public textBoxAcme TBNom = new textBoxAcme(15);
 	public textBoxAcme TBPrenom = new textBoxAcme(15);
 	public textBoxAcme TBEmail = new textBoxAcme("@supinfo.com",15);
+	public textBoxAcme TBIdProjet = new textBoxAcme();
 	
 	//liste des champs pour mot de passe
 	public PasswordFieldAcme TBMotDePasse = new PasswordFieldAcme(15);
@@ -59,6 +61,7 @@ public class Fenetre extends JFrame implements ActionListener{
 	public LabelAcme LConfirmMotDePasse = new LabelAcme("Confirmer le mot de passe:");
 	public LabelAcme LFonction = new LabelAcme("Fonction:");
 	public LabelAcme LTitrePrincipale = new LabelAcme("Bonjour");
+	public LabelAcme LIdProjet = new LabelAcme("Id du projet à atteindre: ");
 	
 	//liste des tables
 	public TableAcme listeProjet = new TableAcme();
@@ -191,6 +194,10 @@ public class Fenetre extends JFrame implements ActionListener{
 			LTitrePrincipale = new LabelAcme("Bonjour "+client.getNom());
 			panelAcceuil.add(LTitrePrincipale);
 			
+			this.add(LIdProjet);
+			this.add(TBIdProjet);
+			this.add(BIdProjet);
+			
 			//reecherche des projets du client
 				ConexionServeur requete = new ConexionServeur();
 				String toutProjet=requete.rechercheProjet(client.getId());
@@ -317,6 +324,10 @@ public class Fenetre extends JFrame implements ActionListener{
 					this.enregistrerInscription();
 					System.out.println("truc");
 				}
+			if (e.getSource()==BIdProjet)
+			{
+				
+			}
 			
 		}
 
