@@ -159,5 +159,106 @@ public class ConexionBDD {
 			return retour;
 		}
 	
+	public String rechercheProjet(String idClient)
+		{
+			String retour="0";
+			
+			//chargement du driver
+			try 
+				{
+					  Class.forName(com.mysql.jdbc.Driver.class.getName());
+				} 
+			catch(ClassNotFoundException ex) 
+				{
+					  System.out.println("Can’t load the Driver");
+				}
+	
+			
+			
+			//connexion à la base de donnée
+			
+			try 
+				{
+					Connection connection = DriverManager.getConnection(adresseDB,userDB,mdpDB);
+					System.out.println("conexion à la base de donnée réussie");
+					Statement stmt = connection.createStatement();
+	
+					//ResultSet rs = stmt.executeQuery("SELECT * FROM employee WERE e_mail ="+email);
+					
+					ResultSet rs = stmt.executeQuery("SELECT * FROM employee_project");
+					
+					
+					retour="";
+					while(rs.next()) 
+						{
+							
+							if (rs.getString("id_employee").equals(idClient))
+								{
+									Statement stmtb = connection.createStatement();
+									ResultSet rsb = stmtb.executeQuery("SELECT * FROM project");
+									while(rsb.next()) 
+									{
+										
+										if (rsb.getString("id").equals(rs.getString("id_project")))
+											{
+												//recherche du nombre d'employés qui travaille sur le projet
+												Statement stmtEmp = connection.createStatement();
+												ResultSet rsEmp = stmtEmp.executeQuery("SELECT * FROM employee_project");
+												Integer nombreEmploye=0;
+												while (rsEmp.next())
+													{
+														if (rsEmp.getString("id_project").equals(rs.getString("id_project")))
+															{
+																nombreEmploye++;
+															
+															}
+													}
+												//recherche du pourcentage d'avancement du projet
+												Statement stmtAvancementProjet = connection.createStatement();
+												ResultSet rsAvancementProjet = stmtAvancementProjet.executeQuery("SELECT * FROM tache");
+												Integer tacheFinie=0;
+												Integer touteTache=0;
+												Integer Avancement;
+												while (rsEmp.next())
+													{
+														if (rsAvancementProjet.getString("id_projet").equals(rs.getString("id_project")))
+															{
+																if(rsAvancementProjet.getString("statut").equals(1))
+																	{
+																		tacheFinie++;
+																	}
+																touteTache++;
+															}
+													}
+												//élimination des éventuelles divisions par 0	
+												if (touteTache.equals(0))
+													{
+														Avancement=0;
+													}
+												else
+													{
+														Avancement=(tacheFinie/touteTache)*100;
+													}
+												//création du message de retour pour le client
+												retour+=rsb.getString("id")+"@!"+rsb.getString("nom")+"@!"+rsb.getString("date_debut")+"@!"+rsb.getString("date_fin")+"@!"+Integer.toString(nombreEmploye)+"@!"+Integer.toString(Avancement);
+												retour+=";";
+											}
+									}
+								}
+							
+						}
+	
+	
+				}
+			catch (SQLException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			return retour;
+		
+		}
+	
 	
 }

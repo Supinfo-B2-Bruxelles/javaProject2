@@ -34,5 +34,16 @@ public class GestionReponse {
 			
 			return retour;
 		}
+	public String rechercheProjet(String[] liste)
+		{
+			String retour="";
+			
+			String idClient=liste[1];
+			
+			ConexionBDD BDD = new ConexionBDD();
+			retour = BDD.rechercheProjet(idClient);
+			
+			return retour;
+		}
 
 }

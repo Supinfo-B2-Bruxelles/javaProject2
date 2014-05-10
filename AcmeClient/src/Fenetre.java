@@ -55,9 +55,12 @@ public class Fenetre extends JFrame implements ActionListener{
 	public LabelAcme LMotDePasse = new LabelAcme("Mot de passe:");
 	public LabelAcme LConfirmMotDePasse = new LabelAcme("Confirmer le mot de passe:");
 	public LabelAcme LFonction = new LabelAcme("Fonction:");
+	public LabelAcme LTitrePrincipale = new LabelAcme("Bonjour");
 	
 	//liste des panels éventuels de la fenêtre
 	public JPanel panelAcceuil = new JPanel();
+
+	private Project listeProjets[];
 	
 	//initialisation de la fenêtre
 	public Fenetre(String typeF)
@@ -172,6 +175,40 @@ public class Fenetre extends JFrame implements ActionListener{
 				{
 					client= new Employee(infoEmployee[0], infoEmployee[1], infoEmployee[2], infoEmployee[3]);
 				}
+			
+			this.setContentPane(panelAcceuil);
+			panelAcceuil.removeAll();
+			
+			panelAcceuil.revalidate();
+			System.out.println("panneau d'accueil");
+			
+			LTitrePrincipale = new LabelAcme("Bonjour "+client.getNom());
+			panelAcceuil.add(LTitrePrincipale);
+			
+			//reecherche des projets du client
+				ConexionServeur requete = new ConexionServeur();
+				String toutProjet=requete.rechercheProjet(client.getId());
+				
+				String[] liste = toutProjet.split(";");
+				
+				Project[] listeProjets = new Project[liste.length];
+				
+				Integer iListeProjet=0;
+				
+				
+				
+				for (String projet : liste) 
+					{
+						String[] attributProjet=projet.split("@!");
+						//listeProjets[iListeProjet]=null;
+						listeProjets[iListeProjet]=new Project(Integer.parseInt(attributProjet[0]), attributProjet[1], Integer.parseInt(attributProjet[2]), Integer.parseInt(attributProjet[3]), Integer.parseInt(attributProjet[4]), Integer.parseInt(attributProjet[5]));
+						iListeProjet++;
+					}
+				
+				client.setListeProjet(listeProjets);
+			
+
+			
 		}
 	
 	public void enregistrerInscription()
@@ -216,11 +253,21 @@ public class Fenetre extends JFrame implements ActionListener{
 			
 			if (!conexionReussie.equals("0"))
 				{
+				
+
 					//découpage en tableau de la chaine de caractere recue
 					String[] conexion;
+
 					conexion = conexionReussie.split(";");
-					JOptionPane.showMessageDialog(this, "Conexion réussie");
-					this.panelAcceuilConnexte(conexion);
+
+ 					JOptionPane.showMessageDialog(this, "Conexion réussie");
+
+				
+
+ 					this.panelAcceuilConnexte(conexion);
+					
+					
+					
 				}
 			else
 				{

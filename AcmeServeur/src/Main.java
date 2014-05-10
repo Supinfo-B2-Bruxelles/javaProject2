@@ -53,6 +53,12 @@ public class Main {
 								resultatTraitement=gestion.conexion(liste);
 								System.out.println("resutat req co: "+ resultatTraitement);
 							}
+						else if (liste[0].equals("rechercheProjet"))
+						{
+							resultatTraitement=gestion.rechercheProjet(liste);
+							System.out.println("resutat req co: "+ resultatTraitement);
+						}
+						
 							
 						
 						 out = new PrintWriter(service.getOutputStream());

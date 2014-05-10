@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane;
+
 
 public class Employee {
 	
@@ -6,6 +8,7 @@ public class Employee {
 	private String nom;
 	private String prenom;
 	private String email;
+	private Project[] listeProjet;
 	
 	
 	public Integer getId() {
@@ -33,6 +36,15 @@ public class Employee {
 		this.email = email;
 	}
 	
+	public Project[] getListeProjet() {
+		return listeProjet;
+	}
+	public void setListeProjet(Project[] listeProjet) {
+		this.listeProjet = listeProjet;
+	}
+	
+
+	
 	public Employee(String id, String nom, String prenom, String email)
 		{
 			this.setId(Integer.parseInt(id));
@@ -41,9 +53,24 @@ public class Employee {
 			this.setEmail(email);
 		}
 	
-	public void hydrateDepuisBDD(String email)
+	public void ListeProjetBDD()
 		{
+			String rechercheProjets="0";
+			ConexionServeur requete = new ConexionServeur();
+			rechercheProjets = requete.rechercheProjet(this.getId());
 			
+			if (!rechercheProjets.equals("0"))
+				{
+					//découpage en tableau de la chaine de caractere recue
+					String[] conexion;
+					conexion = rechercheProjets.split(";");
+					
+					
+				}
+			else
+				{
+					
+				}
 		}
 		
 
