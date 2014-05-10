@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 
 public class Fenetre extends JFrame implements ActionListener{
@@ -200,19 +201,28 @@ public class Fenetre extends JFrame implements ActionListener{
 				
 				Integer iListeProjet=0;
 				
-				
+				Object[][] donnee =  new Object[liste.length][];
 				
 				for (String projet : liste) 
 					{
 						String[] attributProjet=projet.split("@!");
 						//listeProjets[iListeProjet]=null;
 						listeProjets[iListeProjet]=new Project(Integer.parseInt(attributProjet[0]), attributProjet[1], Integer.parseInt(attributProjet[2]), Integer.parseInt(attributProjet[3]), Integer.parseInt(attributProjet[4]), Integer.parseInt(attributProjet[5]));
+						donnee[iListeProjet]=attributProjet;
 						iListeProjet++;
+						
 					}
 				
 				client.setListeProjet(listeProjets);
 				
 				//affichage des projets dans une table
+				
+				
+				String[] titreCollones= { "Id", "Nom", "Date de début", "Date de fin", "Avancement", "Nombre d'employés"};
+				this.listeProjet=new TableAcme(donnee, titreCollones);
+				JScrollPane scoll = new JScrollPane(listeProjet);
+				this.add(scoll);
+				
 				
 			
 

@@ -17,22 +17,23 @@ public class ProjectTableModel  extends AbstractTableModel{
     
     private Vector<Project> projet;
     
-	public ProjectTableModel() {
+	public ProjectTableModel(Vector<Project> projets) {
 		super();
+		this.projet=projets;
 		
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return LABELS.length;
 	}
 
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return this.projet.size();
 	}
 
 	@Override
