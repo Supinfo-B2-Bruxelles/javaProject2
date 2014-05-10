@@ -1,6 +1,8 @@
+package main;
 import interfaceGraphic.BoutonContextAcme;
 import interfaceGraphic.LabelAcme;
 import interfaceGraphic.PasswordFieldAcme;
+import interfaceGraphic.TableAcme;
 import interfaceGraphic.bouttonAcme;
 import interfaceGraphic.radioAcme;
 import interfaceGraphic.textBoxAcme;
@@ -56,6 +58,9 @@ public class Fenetre extends JFrame implements ActionListener{
 	public LabelAcme LConfirmMotDePasse = new LabelAcme("Confirmer le mot de passe:");
 	public LabelAcme LFonction = new LabelAcme("Fonction:");
 	public LabelAcme LTitrePrincipale = new LabelAcme("Bonjour");
+	
+	//liste des tables
+	public TableAcme listeProjet = new TableAcme();
 	
 	//liste des panels éventuels de la fenêtre
 	public JPanel panelAcceuil = new JPanel();
@@ -206,6 +211,9 @@ public class Fenetre extends JFrame implements ActionListener{
 					}
 				
 				client.setListeProjet(listeProjets);
+				
+				//affichage des projets dans une table
+				
 			
 
 			

@@ -2,6 +2,8 @@ import java.io.*;
 import java.net.*;
 import java.io.InputStream;
 
+import main.Fenetre;
+
 
 
 //Main du client
