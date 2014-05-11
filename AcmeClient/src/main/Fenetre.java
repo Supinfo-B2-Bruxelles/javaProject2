@@ -374,7 +374,8 @@ public class Fenetre extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) 
 		{
-		System.out.println("truc1");
+			System.out.println("truc1");
+			
 			if (e.getSource()==boutonConexion)
 				{
 					this.panelConexion();
@@ -390,6 +391,10 @@ public class Fenetre extends JFrame implements ActionListener{
 			if (e.getSource()==BNouveauProjet)
 				{
 					this.panelNouveauProjet();
+				}
+			if (e.getSource()==BInscription)
+				{
+					this.enregistrerInscription();
 				}
 			if (e.getSource().getClass().equals(CBReference.getClass()))
 				{
