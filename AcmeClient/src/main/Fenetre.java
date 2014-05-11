@@ -237,9 +237,9 @@ public class Fenetre extends JFrame implements ActionListener{
 								//listeProjets[iListeProjet]=null;
 								listeProjets[iListeProjet]=new Project(Integer.parseInt(attributProjet[0]), attributProjet[1], attributProjet[2], attributProjet[3], Integer.parseInt(attributProjet[4]), Integer.parseInt(attributProjet[5]));
 								
-								JCheckBox check= new JCheckBox();
-								BoutonTableAcme BModifierLeProjet = new BoutonTableAcme(check);
-								BModifierLeProjet.id=listeProjets[iListeProjet].getId();
+								//JCheckBox check= new JCheckBox();
+								//BoutonTableAcme BModifierLeProjet = new BoutonTableAcme(check);
+								//BModifierLeProjet.id=listeProjets[iListeProjet].getId();
 								Object[] attProj ={attributProjet[0], attributProjet[1], attributProjet[2], attributProjet[3], attributProjet[4], attributProjet[5], "Modifier"};
 								donnee[iListeProjet]=attProj;
 								iListeProjet++;
@@ -253,7 +253,7 @@ public class Fenetre extends JFrame implements ActionListener{
 						
 						String[] titreCollones= { "Id", "Nom", "Date de début", "Date de fin", "Avancement", "Nombre d'employés", "Modifier"};
 						this.listeProjet=new TableAcme(donnee, titreCollones);
-						this.listeProjet.getColumn("Modifier").setCellEditor(new BoutonTableAcme(new JCheckBox()));
+						this.listeProjet.getColumn("Modifier").setCellEditor(new BoutonTableAcme(new JCheckBox(),this.listeProjet));
 					
 						this.listeProjet.getColumn("Modifier").setCellRenderer(new ButtonRenderer("Modifier"));
 						JScrollPane scoll = new JScrollPane(listeProjet);
@@ -320,11 +320,14 @@ public class Fenetre extends JFrame implements ActionListener{
 			//si le projet existe
 			if (!infosProjet.equals("0"))
 				{
+				
 					String[] attributProjet=infosProjet.split(";");
 					
+					//affichage des données sur le projet
 					Project projetEnCour=new Project(Integer.parseInt(attributProjet[0]), attributProjet[1], attributProjet[2],attributProjet[3]);
-					
 					this.add(new LabelAcme("<html>Projet: "+projetEnCour.getNom()+"<br/>"+"Date de début: "+projetEnCour.getDateDebut()+"<br/>"+"Date de fin: "+projetEnCour.getDateFin()+"</html>"));
+				
+				
 				}
 			else
 				{

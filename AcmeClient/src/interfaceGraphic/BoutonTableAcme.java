@@ -21,18 +21,20 @@ public class BoutonTableAcme extends DefaultCellEditor{
 		private boolean   isPushed;
 		private ButtonListener bListener = new ButtonListener();
 		public Integer id;
+		public JTable table;
 		
 	   
 	  //Constructeur avec une CheckBox
-	  public BoutonTableAcme(JCheckBox checkBox) {
-	    //Par défaut, ce type d'objet travaille avec un JCheckBox
-	    super(checkBox);
-	    //On crée à nouveau un bouton
-	    button = new BoutonContextAcme("Modifier");
-	    button.setOpaque(true);
-	    //On lui attribue un listener
-	    button.addActionListener(bListener);
-	  }
+		 public BoutonTableAcme(JCheckBox checkBox, JTable tablec) {
+			    //Par défaut, ce type d'objet travaille avec un JCheckBox
+			    super(checkBox);
+			    //On crée à nouveau un bouton
+			    button = new BoutonContextAcme("Modifier");
+			    button.setOpaque(true);
+			    //On lui attribue un listener
+			    button.addActionListener(bListener);
+			    table=tablec;
+			  }
 	  public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) { 
 	    //On précise le numéro de ligne à notre listener
 	    bListener.setRow(row);
@@ -49,25 +51,27 @@ public class BoutonTableAcme extends DefaultCellEditor{
 	   
 	  //Notre listener pour le bouton
 	  class ButtonListener implements ActionListener{        
-	    private int column, row;
-	    private JTable table;
-	    private int nbre = 0;
-	    private BoutonContextAcme button;
-	        
-	    public void setColumn(int col){this.column = col;}
-	    public void setRow(int row){this.row = row;}
-	    public void setTable(JTable table){this.table = table;}
-	    
-	    public BoutonContextAcme getButton(){return this.button;}
-	        
-	    public void actionPerformed(ActionEvent event) {
-	    	 System.out.println("coucou du bouton : " + ((BoutonContextAcme)event.getSource()).getText());
-	         //On affecte un nouveau libellé à une celulle de la ligne
-	         //((AbstractTableModel)table.getModel()).setValueAt("New Value " + (++nbre), this.row, (this.column -1));   
-	         //Permet de dire à notre tableau qu'une valeur a changé à l'emplacement déterminé par les valeurs passées en paramètres
-	         //((AbstractTableModel)table.getModel()).fireTableCellUpdated(this.row, this.column - 1);
-	         this.button = ((BoutonContextAcme)event.getSource());
-	    }
-	  }     
+		    private int column, row;
+		    private JTable table;
+		    private int nbre = 0;
+		    private BoutonContextAcme button;
+		        
+		    public void setColumn(int col){this.column = col;}
+		    public void setRow(int row){this.row = row;}
+		    public void setTable(JTable table){this.table = table;}
+		    
+		    public BoutonContextAcme getButton(){return this.button;}
+		        
+		    public void actionPerformed(ActionEvent event) {
+		    	 int row = table.convertRowIndexToModel(table.getEditingRow());
+		    	 System.out.println("coucou du bouton : " + ((BoutonContextAcme)event.getSource()).getText() + table.getValueAt(row, 0));
+		         //On affecte un nouveau libellé à une celulle de la ligne
+		         //((AbstractTableModel)table.getModel()).setValueAt("New Value " + (++nbre), this.row, (this.column -1));   
+		         //Permet de dire à notre tableau qu'une valeur a changé à l'emplacement déterminé par les valeurs passées en paramètres
+		         //((AbstractTableModel)table.getModel()).fireTableCellUpdated(this.row, this.column - 1);
+		         this.button = ((BoutonContextAcme)event.getSource());
+		    }
+		  }    
+	     
 
 }
