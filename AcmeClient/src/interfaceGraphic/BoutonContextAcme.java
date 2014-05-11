@@ -10,6 +10,7 @@ public class BoutonContextAcme extends bouttonAcme{
 	
 	public int longueur=100;
 	public int hauteur=20;
+	public Integer id;
 
 	public BoutonContextAcme(Action a) {
 		super(a);

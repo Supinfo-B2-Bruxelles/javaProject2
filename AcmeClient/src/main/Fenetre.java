@@ -1,5 +1,7 @@
 package main;
 import interfaceGraphic.BoutonContextAcme;
+import interfaceGraphic.BoutonTableAcme;
+import interfaceGraphic.ButtonRenderer;
 import interfaceGraphic.LabelAcme;
 import interfaceGraphic.PasswordFieldAcme;
 import interfaceGraphic.TableAcme;
@@ -8,6 +10,7 @@ import interfaceGraphic.radioAcme;
 import interfaceGraphic.textBoxAcme;
 
 import java.awt.BorderLayout;
+import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -16,6 +19,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Action;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,6 +39,9 @@ public class Fenetre extends JFrame implements ActionListener{
 	public BoutonContextAcme BConexion = new BoutonContextAcme("Connexion");
 	public BoutonContextAcme BInscription = new BoutonContextAcme("Inscription");
 	public BoutonContextAcme BIdProjet = new BoutonContextAcme("Voire le projet");
+	
+	//tableau de boutons classiques
+	public Object[][] BModiferProjet;
 	
 	//liste des textboxes
 	public textBoxAcme TBNom = new textBoxAcme(15);
@@ -194,9 +201,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			LTitrePrincipale = new LabelAcme("Bonjour "+client.getNom());
 			panelAcceuil.add(LTitrePrincipale);
 			
-			this.add(LIdProjet);
-			this.add(TBIdProjet);
-			this.add(BIdProjet);
+			
 			
 			//reecherche des projets du client
 				ConexionServeur requete = new ConexionServeur();
@@ -215,8 +220,14 @@ public class Fenetre extends JFrame implements ActionListener{
 						String[] attributProjet=projet.split("@!");
 						//listeProjets[iListeProjet]=null;
 						listeProjets[iListeProjet]=new Project(Integer.parseInt(attributProjet[0]), attributProjet[1], Integer.parseInt(attributProjet[2]), Integer.parseInt(attributProjet[3]), Integer.parseInt(attributProjet[4]), Integer.parseInt(attributProjet[5]));
-						donnee[iListeProjet]=attributProjet;
+						
+						JCheckBox check= new JCheckBox();
+						BoutonTableAcme BModifierLeProjet = new BoutonTableAcme(check);
+						BModifierLeProjet.id=listeProjets[iListeProjet].getId();
+						Object[] attProj ={attributProjet[0], attributProjet[1], attributProjet[2], attributProjet[3], attributProjet[4], attributProjet[5], "Modifier"};
+						donnee[iListeProjet]=attProj;
 						iListeProjet++;
+						
 						
 					}
 				
@@ -224,11 +235,14 @@ public class Fenetre extends JFrame implements ActionListener{
 				
 				//affichage des projets dans une table
 				
-				
-				String[] titreCollones= { "Id", "Nom", "Date de début", "Date de fin", "Avancement", "Nombre d'employés"};
+				String[] titreCollones= { "Id", "Nom", "Date de début", "Date de fin", "Avancement", "Nombre d'employés", "Modifier"};
 				this.listeProjet=new TableAcme(donnee, titreCollones);
+				this.listeProjet.getColumn("Modifier").setCellEditor(new BoutonTableAcme(new JCheckBox()));
+				this.listeProjet.getColumn("Modifier").setCellRenderer(new ButtonRenderer("Modifier"));
 				JScrollPane scoll = new JScrollPane(listeProjet);
+				
 				this.add(scoll);
+				
 				
 				
 			
