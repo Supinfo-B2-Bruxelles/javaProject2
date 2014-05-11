@@ -178,5 +178,42 @@ public class ConexionServeur {
 				}
 			return retour;
 		}
+	
+	public String modifierProjet(String idProjet)
+		{
+			BufferedReader in;
+			PrintWriter out;
+			String retour="0";
+			try 
+				{
+					System.out.println("envoie de la requete de recherche des projets");
+					//connexion au serveur
+					Socket s = new Socket(nomServeur, port);
+						OutputStreamWriter writer = new OutputStreamWriter(s.getOutputStream());
+						PrintWriter write = new PrintWriter(s.getOutputStream());
+	                    write.println("rechercheProjetParIdProjet"+";"+idProjet);
+	                    write.flush();
+						
+						
+					   in = new BufferedReader (new InputStreamReader (s.getInputStream()));
+				        String message_distant = in.readLine();
+				        System.out.println("message du serveur"+message_distant);
+					// Close the socket
+					s.close();
+					//out.flush();
+					//out.close();
+					retour = message_distant;
+					
+				} 
+			catch (IOException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			
+			
+			return retour;
+		}
 
 }

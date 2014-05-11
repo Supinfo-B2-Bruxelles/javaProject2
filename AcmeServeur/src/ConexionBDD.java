@@ -219,7 +219,7 @@ public class ConexionBDD {
 												Integer tacheFinie=0;
 												Integer touteTache=0;
 												Integer Avancement;
-												while (rsEmp.next())
+												while (rsAvancementProjet.next())
 													{
 														if (rsAvancementProjet.getString("id_projet").equals(rs.getString("id_project")))
 															{
@@ -262,7 +262,7 @@ public class ConexionBDD {
 	
 	public String nouveauProjet(String titre, String dateDebutString, String dateFinString)
 		{
-			
+			String retour="0";
 			//chargement du driver
 			try 
 				{
@@ -283,14 +283,33 @@ public class ConexionBDD {
 					System.out.println("conexion à la base de donnée réussie");
 					String requete = "INSERT INTO project (nom, date_debut, date_fin)"+ " VALUES ('"+titre+"', '"+dateDebutString+"', '"+dateFinString+"')";
 					connection.createStatement().executeUpdate(requete);
-				}
-			catch (SQLException e) 
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 			
-			String retour="1";
+			
+					Statement stmt = connection.createStatement();
+		
+					//ResultSet rs = stmt.executeQuery("SELECT * FROM employee WERE e_mail ="+email);
+					
+					ResultSet rs = stmt.executeQuery("SELECT * FROM project");
+					
+					
+					
+					while(rs.next()) 
+						{
+							
+							if (rs.getString("nom").equals(titre) && rs.getString("date_debut").equals(dateDebutString) && rs.getString("date_fin").equals(dateFinString))
+								{
+									retour=rs.getString("id");
+								}
+							
+						}
+					}
+				catch (SQLException e) 
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			
 			return retour;
 			
 				  
@@ -298,6 +317,101 @@ public class ConexionBDD {
 				
 	
 		
+		}
+	
+	public String rechercheProjetParIdProjet(String idProjet)
+		{
+			String retour="0";
+			
+			//chargement du driver
+			try 
+				{
+					  Class.forName(com.mysql.jdbc.Driver.class.getName());
+				} 
+			catch(ClassNotFoundException ex) 
+				{
+					  System.out.println("Can’t load the Driver");
+				}
+	
+			
+			
+			//connexion à la base de donnée
+			
+			try 
+				{
+					Connection connection = DriverManager.getConnection(adresseDB,userDB,mdpDB);
+					System.out.println("conexion à la base de donnée réussie");
+					Statement stmt = connection.createStatement();
+	
+					//ResultSet rs = stmt.executeQuery("SELECT * FROM employee WERE e_mail ="+email);
+					
+					ResultSet rs = stmt.executeQuery("SELECT * FROM project");
+					
+					
+					retour="0";
+					while(rs.next()) 
+						{
+							
+							if (rs.getString("id").equals(idProjet))
+								{
+									retour = rs.getString("id")+";"+rs.getString("nom")+";"+rs.getString("date_debut")+";"+rs.getString("date_fin");
+									
+									
+										
+												//recherche du nombre d'employés qui travaille sur le projet
+												Statement stmtEmp = connection.createStatement();
+												ResultSet rsEmp = stmtEmp.executeQuery("SELECT * FROM employee_project");
+												Integer nombreEmploye=0;
+												String idEmployee="";
+												while (rsEmp.next())
+													{
+														if (rsEmp.getString("id_project").equals(rs.getString("id")))
+															{
+																nombreEmploye++;
+																idEmployee+=rsEmp.getString("id_employee")+"@!";
+															
+															}
+													}
+												retour+=idEmployee+";";
+												
+												
+												
+												//recherche des taches du projet
+												Statement stmtTache = connection.createStatement();
+												ResultSet rsTache = stmtTache.executeQuery("SELECT * FROM tache");
+												String tacheS="";
+												String ListeTache="";
+												while (rsTache.next())
+													{
+														if (rsTache.getString("id_projet").equals(idProjet))
+															{
+																
+																tacheS+=rsTache.getString("id")+"@/"+rsTache.getString("nom")+"@/"+rsTache.getString("date_debut")+"@/"+rsTache.getString("date_fin")+"@/"+rsTache.getString("autheur")+"@/"+rsTache.getString("description")+"@/"+rsTache.getString("statut")+"@/"+rsTache.getString("id_employee")+"@/";
+																ListeTache+=tacheS+"@!";
+															}
+													}
+												retour+=ListeTache;
+												
+												
+												
+												//création du message de retour pour le client
+												
+												
+											}
+									}
+								
+							
+						
+	
+	
+				}
+			catch (SQLException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			return retour;
 		}
 	
 }

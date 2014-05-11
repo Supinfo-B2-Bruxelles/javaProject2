@@ -4,8 +4,8 @@ public class Project {
 	
 	private Integer id;
 	private String nom;
-	private Integer dateDebut;
-	private Integer dateFin;
+	private String dateDebut;
+	private String dateFin;
 	private String description;
 	private Integer completion;
 	private Integer nombreDEmployee;
@@ -23,16 +23,16 @@ public class Project {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public Integer getDateDebut() {
+	public String getDateDebut() {
 		return dateDebut;
 	}
-	public void setDateDebut(Integer dateDebut) {
+	public void setDateDebut(String dateDebut) {
 		this.dateDebut = dateDebut;
 	}
-	public Integer getDateFin() {
+	public String getDateFin() {
 		return dateFin;
 	}
-	public void setDateFin(Integer dateFin) {
+	public void setDateFin(String dateFin) {
 		this.dateFin = dateFin;
 	}
 	public String getDescription() {
@@ -58,7 +58,7 @@ public class Project {
 	{
 		
 	}
-	public Project(Integer id, String nom, Integer dateDebut, Integer dateFin, Integer nombreEmploye, Integer completion)
+	public Project(Integer id, String nom, String dateDebut, String dateFin, Integer nombreEmploye, Integer completion)
 		{
 			this.setId(id);
 			this.setNom(nom);
@@ -66,6 +66,14 @@ public class Project {
 			this.setDateFin(dateFin);
 			this.setNombreDEmployee(nombreEmploye);
 			this.setCompletion(completion);
+		}
+	public Project(Integer id, String nom, String dateDebut, String dateFin)
+		{
+			this.setId(id);
+			this.setNom(nom);
+			this.setDateDebut(dateDebut);
+			this.setDateFin(dateFin);
+			
 		}
 	
 	

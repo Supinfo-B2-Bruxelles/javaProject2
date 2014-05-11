@@ -235,7 +235,7 @@ public class Fenetre extends JFrame implements ActionListener{
 							{
 								String[] attributProjet=projet.split("@!");
 								//listeProjets[iListeProjet]=null;
-								listeProjets[iListeProjet]=new Project(Integer.parseInt(attributProjet[0]), attributProjet[1], Integer.parseInt(attributProjet[2]), Integer.parseInt(attributProjet[3]), Integer.parseInt(attributProjet[4]), Integer.parseInt(attributProjet[5]));
+								listeProjets[iListeProjet]=new Project(Integer.parseInt(attributProjet[0]), attributProjet[1], attributProjet[2], attributProjet[3], Integer.parseInt(attributProjet[4]), Integer.parseInt(attributProjet[5]));
 								
 								JCheckBox check= new JCheckBox();
 								BoutonTableAcme BModifierLeProjet = new BoutonTableAcme(check);
@@ -261,8 +261,7 @@ public class Fenetre extends JFrame implements ActionListener{
 						this.add(scoll);
 					}
 				//ajouter un nouveau projet
-				System.out.println(client.getClass());
-				if (classe.equals("manager"))
+				if (classe.equals("manager")) //cette ligne n'est pas propre, à modifier si on a le temps
 					{
 						//ajout liste champs et bouttons
 						this.add(LNouveauProjet);
@@ -296,10 +295,41 @@ public class Fenetre extends JFrame implements ActionListener{
 			ajoutReussi = requete.nouveauProjet(titre, dateDebut, dateFin);
 			System.out.println("tout vas bien: "+ajoutReussi);
 			//si le nouveau projet a été ajouté, on redirige vers le panneau d'édition de projet
-			if (ajoutReussi.equals("1"))
+			if (!ajoutReussi.equals("0"))
 				{
 					JOptionPane.showMessageDialog(this, "Nouveau projet ajouté");
-					//this.panelConexion();
+					this.panelModifierProjet(ajoutReussi);
+				}
+			
+			
+		}
+	
+	
+	public void panelModifierProjet(String idProjet)
+		{
+			//on vide l'ancien panneau
+			this.setContentPane(panelAcceuil);
+			panelAcceuil.removeAll();
+			panelAcceuil.revalidate();
+			System.out.println("Panneau de modification de projet");
+			
+			//recherche sur le projet en cour
+			String infosProjet="0";
+			ConexionServeur requete = new ConexionServeur();
+			infosProjet = requete.modifierProjet(idProjet);
+			//si le projet existe
+			if (!infosProjet.equals("0"))
+				{
+					String[] attributProjet=infosProjet.split(";");
+					
+					Project projetEnCour=new Project(Integer.parseInt(attributProjet[0]), attributProjet[1], attributProjet[2],attributProjet[3]);
+					
+					this.add(new LabelAcme("<html>Projet: "+projetEnCour.getNom()+"<br/>"+"Date de début: "+projetEnCour.getDateDebut()+"<br/>"+"Date de fin: "+projetEnCour.getDateFin()+"</html>"));
+				}
+			else
+				{
+					JOptionPane.showMessageDialog(this, "Projet Introuvable");
+					
 				}
 		}
 	

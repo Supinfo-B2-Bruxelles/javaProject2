@@ -59,5 +59,18 @@ public class GestionReponse {
 			
 			return retour;
 		}
+	public String rechercheProjetParIdProjet(String[] liste)
+		{
+			String retour="";
+			
+			String idProjet=liste[1];
+			
+			
+			
+			ConexionBDD BDD = new ConexionBDD();
+			retour = BDD.rechercheProjetParIdProjet(idProjet);
+			
+			return retour;
+		}
 
 }

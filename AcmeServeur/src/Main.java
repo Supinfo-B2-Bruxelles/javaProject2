@@ -63,6 +63,11 @@ public class Main {
 								resultatTraitement=gestion.nouveauProjet(liste);
 								System.out.println("resutat req co: "+ resultatTraitement);
 							}
+						else if (liste[0].equals("rechercheProjetParIdProjet"))
+							{
+								resultatTraitement=gestion.rechercheProjetParIdProjet(liste);
+								System.out.println("resutat req co: "+ resultatTraitement);
+							}
 						
 							
 						
