@@ -45,5 +45,19 @@ public class GestionReponse {
 			
 			return retour;
 		}
+	public String nouveauProjet(String[] liste)
+		{
+			String retour="";
+			
+			String titre=liste[1];
+			String dateDebutString=liste[2];
+			String dateFinString=liste[3];
+			
+			
+			ConexionBDD BDD = new ConexionBDD();
+			retour = BDD.nouveauProjet(titre, dateDebutString, dateFinString);
+			
+			return retour;
+		}
 
 }

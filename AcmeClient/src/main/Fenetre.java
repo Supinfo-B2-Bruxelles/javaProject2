@@ -1,5 +1,6 @@
 package main;
 import interfaceGraphic.BoutonContextAcme;
+import interfaceGraphic.BoutonLabel;
 import interfaceGraphic.BoutonTableAcme;
 import interfaceGraphic.ButtonRenderer;
 import interfaceGraphic.LabelAcme;
@@ -39,6 +40,7 @@ public class Fenetre extends JFrame implements ActionListener{
 	public BoutonContextAcme BConexion = new BoutonContextAcme("Connexion");
 	public BoutonContextAcme BInscription = new BoutonContextAcme("Inscription");
 	public BoutonContextAcme BIdProjet = new BoutonContextAcme("Voire le projet");
+	public BoutonContextAcme BNouveauProjet = new BoutonContextAcme("Ajouter le projet");
 	
 	//tableau de boutons classiques
 	public Object[][] BModiferProjet;
@@ -47,7 +49,10 @@ public class Fenetre extends JFrame implements ActionListener{
 	public textBoxAcme TBNom = new textBoxAcme(15);
 	public textBoxAcme TBPrenom = new textBoxAcme(15);
 	public textBoxAcme TBEmail = new textBoxAcme("@supinfo.com",15);
-	public textBoxAcme TBIdProjet = new textBoxAcme();
+	public textBoxAcme TBIdProjet = new textBoxAcme(15);
+	public textBoxAcme TBNouveauProjetTitre = new textBoxAcme(15);
+	public textBoxAcme TBNouveauProjetDateDebut = new textBoxAcme(15);
+	public textBoxAcme TBNouveauProjetDateFin = new textBoxAcme(15);
 	
 	//liste des champs pour mot de passe
 	public PasswordFieldAcme TBMotDePasse = new PasswordFieldAcme(15);
@@ -69,6 +74,13 @@ public class Fenetre extends JFrame implements ActionListener{
 	public LabelAcme LFonction = new LabelAcme("Fonction:");
 	public LabelAcme LTitrePrincipale = new LabelAcme("Bonjour");
 	public LabelAcme LIdProjet = new LabelAcme("Id du projet à atteindre: ");
+	public LabelAcme LNouveauProjet = new LabelAcme("Nouveau Projet");
+	public LabelAcme LNouveauProjetTitre = new LabelAcme("Titre: ");
+	public LabelAcme LNouveauProjetDateDebut = new LabelAcme("Date de début (yyyy-mm-dd-hh-mm): ");
+	public LabelAcme LNouveauProjetDateFin = new LabelAcme("Date de fin (yyyy-mm-dd-hh-mm): ");
+	
+	//liste checkbox
+	public JCheckBox CBReference = new JCheckBox();
 	
 	//liste des tables
 	public TableAcme listeProjet = new TableAcme();
@@ -179,6 +191,8 @@ public class Fenetre extends JFrame implements ActionListener{
 	public void panelAcceuilConnexte(String[] infoEmployee)
 		{
 			Employee client;
+			String classe="employee";
+
 			if (infoEmployee[4].equals("0"))
 				{
 					client= new Employee(infoEmployee[0], infoEmployee[1], infoEmployee[2], infoEmployee[3]);
@@ -186,6 +200,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			else if (infoEmployee[4].equals("1"))
 				{
 					client= new Manager(infoEmployee[0], infoEmployee[1], infoEmployee[2], infoEmployee[3]);
+					classe="manager";
 				}
 			else
 				{
@@ -214,40 +229,78 @@ public class Fenetre extends JFrame implements ActionListener{
 				Integer iListeProjet=0;
 				
 				Object[][] donnee =  new Object[liste.length][];
-				
-				for (String projet : liste) 
+				if (!toutProjet.equals(""))
 					{
-						String[] attributProjet=projet.split("@!");
-						//listeProjets[iListeProjet]=null;
-						listeProjets[iListeProjet]=new Project(Integer.parseInt(attributProjet[0]), attributProjet[1], Integer.parseInt(attributProjet[2]), Integer.parseInt(attributProjet[3]), Integer.parseInt(attributProjet[4]), Integer.parseInt(attributProjet[5]));
+						for (String projet : liste) 
+							{
+								String[] attributProjet=projet.split("@!");
+								//listeProjets[iListeProjet]=null;
+								listeProjets[iListeProjet]=new Project(Integer.parseInt(attributProjet[0]), attributProjet[1], Integer.parseInt(attributProjet[2]), Integer.parseInt(attributProjet[3]), Integer.parseInt(attributProjet[4]), Integer.parseInt(attributProjet[5]));
+								
+								JCheckBox check= new JCheckBox();
+								BoutonTableAcme BModifierLeProjet = new BoutonTableAcme(check);
+								BModifierLeProjet.id=listeProjets[iListeProjet].getId();
+								Object[] attProj ={attributProjet[0], attributProjet[1], attributProjet[2], attributProjet[3], attributProjet[4], attributProjet[5], "Modifier"};
+								donnee[iListeProjet]=attProj;
+								iListeProjet++;
+								
+								
+							}
 						
-						JCheckBox check= new JCheckBox();
-						BoutonTableAcme BModifierLeProjet = new BoutonTableAcme(check);
-						BModifierLeProjet.id=listeProjets[iListeProjet].getId();
-						Object[] attProj ={attributProjet[0], attributProjet[1], attributProjet[2], attributProjet[3], attributProjet[4], attributProjet[5], "Modifier"};
-						donnee[iListeProjet]=attProj;
-						iListeProjet++;
+						client.setListeProjet(listeProjets);
 						
+						//affichage des projets dans une table
+						
+						String[] titreCollones= { "Id", "Nom", "Date de début", "Date de fin", "Avancement", "Nombre d'employés", "Modifier"};
+						this.listeProjet=new TableAcme(donnee, titreCollones);
+						this.listeProjet.getColumn("Modifier").setCellEditor(new BoutonTableAcme(new JCheckBox()));
+					
+						this.listeProjet.getColumn("Modifier").setCellRenderer(new ButtonRenderer("Modifier"));
+						JScrollPane scoll = new JScrollPane(listeProjet);
+						
+						this.add(scoll);
+					}
+				//ajouter un nouveau projet
+				System.out.println(client.getClass());
+				if (classe.equals("manager"))
+					{
+						//ajout liste champs et bouttons
+						this.add(LNouveauProjet);
+						this.add(LNouveauProjetTitre);
+						this.add(TBNouveauProjetTitre);
+						this.add(LNouveauProjetDateDebut);
+						this.add(TBNouveauProjetDateDebut);
+						this.add(LNouveauProjetDateFin);
+						this.add(TBNouveauProjetDateFin);
+						this.add(BNouveauProjet);
+						BNouveauProjet.addActionListener(this);
 						
 					}
-				
-				client.setListeProjet(listeProjets);
-				
-				//affichage des projets dans une table
-				
-				String[] titreCollones= { "Id", "Nom", "Date de début", "Date de fin", "Avancement", "Nombre d'employés", "Modifier"};
-				this.listeProjet=new TableAcme(donnee, titreCollones);
-				this.listeProjet.getColumn("Modifier").setCellEditor(new BoutonTableAcme(new JCheckBox()));
-				this.listeProjet.getColumn("Modifier").setCellRenderer(new ButtonRenderer("Modifier"));
-				JScrollPane scoll = new JScrollPane(listeProjet);
-				
-				this.add(scoll);
-				
 				
 				
 			
 
 			
+		}
+	
+	public void panelNouveauProjet()
+		{
+			String titre = TBNouveauProjetTitre.getText();
+			String dateDebut = TBNouveauProjetDateDebut.getText();
+			String dateFin = TBNouveauProjetDateFin.getText();
+			
+			
+			String ajoutReussi="0";
+			
+			ConexionServeur requete = new ConexionServeur();
+			ajoutReussi = requete.nouveauProjet(titre, dateDebut, dateFin);
+			System.out.println("tout vas bien: "+ajoutReussi);
+			//si le nouveau projet a été ajouté, on redirige vers le panneau d'édition de projet
+			if (ajoutReussi.equals("1"))
+				{
+					JOptionPane.showMessageDialog(this, "Nouveau projet ajouté");
+					//this.panelConexion();
+				}
 		}
 	
 	public void enregistrerInscription()
@@ -321,6 +374,7 @@ public class Fenetre extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) 
 		{
+		System.out.println("truc1");
 			if (e.getSource()==boutonConexion)
 				{
 					this.panelConexion();
@@ -333,16 +387,21 @@ public class Fenetre extends JFrame implements ActionListener{
 				{
 					this.enregistrerConexion();
 				}
-			if (e.getSource()==BInscription)
+			if (e.getSource()==BNouveauProjet)
+				{
+					this.panelNouveauProjet();
+				}
+			if (e.getSource().getClass().equals(CBReference.getClass()))
 				{
 					this.enregistrerInscription();
 					System.out.println("truc");
 				}
-			if (e.getSource()==BIdProjet)
-			{
-				
-			}
 			
+			if (e.getSource()==BIdProjet)
+				{
+					
+				}
+				
 		}
 
 	

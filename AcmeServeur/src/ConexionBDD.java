@@ -260,5 +260,44 @@ public class ConexionBDD {
 		
 		}
 	
+	public String nouveauProjet(String titre, String dateDebutString, String dateFinString)
+		{
+			
+			//chargement du driver
+			try 
+				{
+					  Class.forName(com.mysql.jdbc.Driver.class.getName());
+				} 
+			catch(ClassNotFoundException ex) 
+				{
+					  System.out.println("Can’t load the Driver");
+				}
+	
+			
+			
+			//connexion à la base de donnée
+			
+			try 
+				{
+					Connection connection = DriverManager.getConnection(adresseDB,userDB,mdpDB);
+					System.out.println("conexion à la base de donnée réussie");
+					String requete = "INSERT INTO project (nom, date_debut, date_fin)"+ " VALUES ('"+titre+"', '"+dateDebutString+"', '"+dateFinString+"')";
+					connection.createStatement().executeUpdate(requete);
+				}
+			catch (SQLException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			String retour="1";
+			return retour;
+			
+				  
+				 
+				
+	
+		
+		}
 	
 }

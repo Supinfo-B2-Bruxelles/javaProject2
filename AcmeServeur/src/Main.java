@@ -54,10 +54,15 @@ public class Main {
 								System.out.println("resutat req co: "+ resultatTraitement);
 							}
 						else if (liste[0].equals("rechercheProjet"))
-						{
-							resultatTraitement=gestion.rechercheProjet(liste);
-							System.out.println("resutat req co: "+ resultatTraitement);
-						}
+							{
+								resultatTraitement=gestion.rechercheProjet(liste);
+								System.out.println("resutat req co: "+ resultatTraitement);
+							}
+						else if (liste[0].equals("nouveauProjet"))
+							{
+								resultatTraitement=gestion.nouveauProjet(liste);
+								System.out.println("resutat req co: "+ resultatTraitement);
+							}
 						
 							
 						
