@@ -327,7 +327,44 @@ public class Fenetre extends JFrame implements ActionListener{
 					Project projetEnCour=new Project(Integer.parseInt(attributProjet[0]), attributProjet[1], attributProjet[2],attributProjet[3]);
 					this.add(new LabelAcme("<html>Projet: "+projetEnCour.getNom()+"<br/>"+"Date de début: "+projetEnCour.getDateDebut()+"<br/>"+"Date de fin: "+projetEnCour.getDateFin()+"</html>"));
 				
-				
+					
+					//afficher la liste des taches
+					
+					
+					if (!attributProjet[5].equals(""))
+						{
+							String[] taches= attributProjet[5].split("@!");
+							String[] tacheSplitee;
+							Taches[] listeTache = new Taches[taches.length];
+							Integer iListeTache=0;
+							Object[][] donnee =  new Object[taches.length][];
+							for (String tache : taches)
+								{
+									tacheSplitee=tache.split("@/");
+									listeTache[iListeTache]=new Taches(Integer.parseInt(tacheSplitee[0]), tacheSplitee[1], tacheSplitee[2], tacheSplitee[3], Integer.parseInt(tacheSplitee[4]), tacheSplitee[5], Integer.parseInt(tacheSplitee[6]), Integer.parseInt(tacheSplitee[7]), Integer.parseInt(tacheSplitee[8]));
+									
+									Object[] attTache ={attributProjet[0], attributProjet[1], attributProjet[2], attributProjet[3], attributProjet[4], attributProjet[5], attributProjet[6], attributProjet[7], attributProjet[8],};
+									donnee[iListeTache]=attTache;
+									iListeTache++;
+									
+								}
+							
+							
+							//affichage des taches dans une table
+							
+							String[] titreCollones= { "Id", "Nom", "Date de début", "Date de fin", "Autheur", "Description", "Statut", "id du projet", ""};
+							this.listeProjet=new TableAcme(donnee, titreCollones);
+							this.listeProjet.getColumn("Modifier").setCellEditor(new BoutonTableAcme(new JCheckBox(),this.listeProjet));
+						
+							this.listeProjet.getColumn("Modifier").setCellRenderer(new ButtonRenderer("Modifier"));
+							JScrollPane scoll = new JScrollPane(listeProjet);
+							
+							this.add(scoll);
+						}
+					
+					
+					
+					
 				}
 			else
 				{

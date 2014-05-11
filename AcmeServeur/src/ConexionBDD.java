@@ -354,7 +354,7 @@ public class ConexionBDD {
 							
 							if (rs.getString("id").equals(idProjet))
 								{
-									retour = rs.getString("id")+";"+rs.getString("nom")+";"+rs.getString("date_debut")+";"+rs.getString("date_fin");
+									retour = rs.getString("id")+";"+rs.getString("nom")+";"+rs.getString("date_debut")+";"+rs.getString("date_fin")+";";
 									
 									
 										
@@ -372,7 +372,8 @@ public class ConexionBDD {
 															
 															}
 													}
-												retour+=idEmployee+";";
+												retour+=idEmployee;
+												retour+=";";
 												
 												
 												
@@ -390,7 +391,7 @@ public class ConexionBDD {
 																ListeTache+=tacheS+"@!";
 															}
 													}
-												retour+=ListeTache;
+												retour+=ListeTache+";";
 												
 												
 												
